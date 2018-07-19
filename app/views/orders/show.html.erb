@@ -21,7 +21,7 @@
       <tbody>
         <% @cart_total = 0 %>
         <% @order.line_items.each do |details| %>
-          <%= render 'item', product_id: details.product.id, details: details.product %>
+          <%= render 'item', product_id: details.product.id, details: details %>
         <% end %>
       </tbody>
       <tfoot>

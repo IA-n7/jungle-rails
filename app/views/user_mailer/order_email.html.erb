@@ -1,0 +1,10 @@
+
+<h1>Thank you for your order, <%= @order.email %>!</h1>
+<p>
+  Order number: <%= @order.id %>
+</p>
+<div>
+  <% @order.line_items.each do |details| %>
+    <%= render 'item', product_id: details.product.id, details: details %>
+  <% end %>
+</div>
