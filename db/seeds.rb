@@ -132,5 +132,58 @@ cat3.products.create!({
   price: 2_483.75
 })
 
+## USER
+
+user1 = User.find_or_create_by! ({
+  first_name: 'Donny',
+  last_name: 'Smith',
+  email: 'donny@test.com',
+  password_digest: '123'
+})
+
+## REVIEWS
+
+Review.find_or_create_by!({
+  description: Faker::Hipster.paragraph(4),
+  rating: 5,
+  user_id: 1,
+  product_id: 12
+})
+
+Review.find_or_create_by!({
+  description: Faker::Hipster.paragraph(4),
+  rating: 3,
+  user_id: 1,
+  product_id: 12
+})
+
+Review.find_or_create_by!({
+  description: Faker::Hipster.paragraph(4),
+  rating: 4,
+  user_id: 1,
+  product_id: 11
+})
+
+Review.find_or_create_by!({
+  description: Faker::Hipster.paragraph(4),
+  rating: 2,
+  user_id: 1,
+  product_id: 11
+})
+
+Review.find_or_create_by!({
+  description: Faker::Hipster.paragraph(4),
+  rating: 5,
+  user_id: 1,
+  product_id: 10
+})
+
+Review.find_or_create_by!({
+  description: Faker::Hipster.paragraph(4),
+  rating: 1,
+  user_id: 1,
+  product_id: 10
+})
+
 
 puts "DONE!"
