@@ -73,10 +73,6 @@
             <dd><%= detail.description %></dd>
             <% if current_user == detail.user %>
             <dt>Delete Review</dt>
-
-            <% puts"========================================" %>
-            <% puts detail.id %>
-            <% puts"========================================" %>
             <dd><%= link_to fa_icon('trash'), product_review_url(@product.id, detail.id), class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: "Are you sure?" } %></dd>
             <% end %>
           </dl>
