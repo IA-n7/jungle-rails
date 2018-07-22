@@ -22,41 +22,58 @@
           <dd><%= @product.quantity %></dd>
           <dt>Price</dt>
           <dd><%= @product.price %></dd>
+          <dt></dt>
+          <dd>
+          <% if current_user && @product.quantity != 0 %>
+            <%= link_to add_item_cart_path(product_id: @product.id), class: 'btn btn-primary', method: :put do %>
+              <%= fa_icon "shopping-cart", text: 'Add' %>
+            <% end %>
+          <% end %>
+          <span class="btn btn-default" id="rating">
+            <%= @product.reviews.sum(:rating)/5 %> / 5
+          </span>
+        </dd>
         </dl>
       </div>
-
     </div>
-
   </article>
 
   <% if current_user %>
-  <div>
-    <%= form_for [@product, @review] do |form| %>
+    <article class="reviews-box spacer">
+      <h2 class="reviews-header"> Add a review </h2>
+      <div class="row">
+        <%= form_for [@product, @review] do |form| %>
+          <% if form.object.errors.any? %>
+            <div class="alert alert-danger">
+              <strong>The following errors prevented saving:</strong>
+              <ul>
+                <% form.object.errors.full_messages.each do |error| %>
+                  <li><%= error %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
 
-      <% if form.object.errors.any? %>
-        <div class="alert alert-danger">
-          <strong>The following errors prevented saving:</strong>
-          <ul>
-            <% form.object.errors.full_messages.each do |error| %>
-              <li><%= error %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
+          <div class="col-sm-8">
+            <dl class="dl-horizontal">
 
-      <div class="form-group">
-        <%= form.label :rating %>
-        <%= form.number_field :rating, min: 0, max: 5, class: 'form-control' %>
+              <div class="form-group">
+                <dt><%= form.label :rating %></dt>
+                  <dd><%= form.number_field :rating, min: 0, max: 5, class: 'form-control review-rating'%></dd>
+              </div>
+
+              <div class="form-group">
+                <dt><%= form.label :description %></dt>
+                <dd><%= form.text_area :description, class: 'form-control review-description' %></dd>
+              </div>
+              <dt></dt>
+              <dd><%= form.submit 'Submit Review', class: 'btn btn-primary' %></dd>
+            </dl>
+          </div>
+
+        <% end %>
       </div>
-
-      <div class="form-group">
-        <%= form.label :description %>
-        <%= form.text_area :description, class: 'form-control' %>
-      </div>
-
-      <%= form.submit 'Submit Review', class: 'btn btn-primary' %>
-    <% end %>
-  </div>
+    </article>
   <% end %>
 
   <article class="reviews-box">
@@ -76,9 +93,7 @@
             <dd><%= link_to fa_icon('trash'), product_review_url(@product.id, detail.id), class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: "Are you sure?" } %></dd>
             <% end %>
           </dl>
-
         </div>
-
       <% end %>
     </div>
   </article>

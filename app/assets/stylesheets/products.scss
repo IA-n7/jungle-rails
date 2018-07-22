@@ -76,6 +76,13 @@ main section.categories-show {
   }
 }
 
+#rating {
+  margin-left: 10px;
+  font-weight: bold;
+  background-color: gold;
+  pointer-events: none;
+}
+
 main section.products-show {
 
   .product-detail {
